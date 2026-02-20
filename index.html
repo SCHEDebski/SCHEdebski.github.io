@@ -279,54 +279,9 @@ dla jednego z wiodących <strong>na Mazowszu generalnych wykonawców domów ener
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Obsługa linków z kotwicami (#)
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = this.getAttribute('href').substring(1);
-      const element = document.getElementById(target);
-      
-      if (element) {
-        // Zmień URL bez przeładowania strony
-        window.history.pushState({section: target}, '', '#' + target);
-        
-        // Przewiń do sekcji
-        setTimeout(() => {
-          element.scrollIntoView({behavior: 'smooth'});
-        }, 100);
-      }
-    });
-  });
-});
 
-// Obsłuż bezpośrednie linki (np. /#SCHE)
-window.addEventListener('popstate', function(e) {
-  if (e.state && e.state.section) {
-    const element = document.getElementById(e.state.section);
-    if (element) {
-      setTimeout(() => {
-        element.scrollIntoView({behavior: 'smooth'});
-      }, 100);
-    }
-  }
-});
-
-// Obsłuż bezpośrednie wejście na stronę z kotwicą (np. /#SCHE)
-window.addEventListener('load', function() {
-  const hash = window.location.hash.substring(1);
-  if (hash && document.getElementById(hash)) {
-    setTimeout(() => {
-      document.getElementById(hash).scrollIntoView({behavior: 'smooth'});
-    }, 100);
-  }
-});
-</script>
-		
 	</body>
 </html>
-
 
 
 
