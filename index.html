@@ -281,30 +281,27 @@ dla jednego z wiodących <strong>na Mazowszu generalnych wykonawców domów ener
 			<script src="assets/js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Obsługa linków z kotwicami (#)
+  // Obsługa gładkiego przewijania dla wszystkich linków z #
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      const target = this.getAttribute('href').substring(1);
-      const element = document.getElementById(target);
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
       
-      if (element) {
-        // Zmień URL bez przeładowania strony
-        window.history.pushState({section: target}, '', '#' + target);
+      if (targetElement) {
+        // Przewiń gładko do elementu
+        targetElement.scrollIntoView({behavior: 'smooth'});
         
-        // Przewiń do sekcji
-        setTimeout(() => {
-          element.scrollIntoView({behavior: 'smooth'});
-        }, 100);
+        // Zaktualizuj URL
+        window.history.pushState({}, '', '#' + targetId);
       }
     });
   });
-});
 
-// Obsłuż bezpośrednie linki (np. /#SCHE)
-window.addEventListener('popstate', function(e) {
-  if (e.state && e.state.section) {
-    const element = document.getElementById(e.state.section);
+  // Obsługa bezpośrednich linków przy wejściu na stronę
+  const hash = window.location.hash.substring(1);
+  if (hash) {
+    const element = document.getElementById(hash);
     if (element) {
       setTimeout(() => {
         element.scrollIntoView({behavior: 'smooth'});
@@ -312,20 +309,11 @@ window.addEventListener('popstate', function(e) {
     }
   }
 });
-
-// Obsłuż bezpośrednie wejście na stronę z kotwicą (np. /#SCHE)
-window.addEventListener('load', function() {
-  const hash = window.location.hash.substring(1);
-  if (hash && document.getElementById(hash)) {
-    setTimeout(() => {
-      document.getElementById(hash).scrollIntoView({behavior: 'smooth'});
-    }, 100);
-  }
-});
 </script>
 		
 	</body>
 </html>
+
 
 
 
